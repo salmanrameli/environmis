@@ -16,8 +16,6 @@ import com.example.salmanrameli.db.ReportDbHelper;
 import java.util.ArrayList;
 
 public class IndexReport extends AppCompatActivity {
-    private ReportDbHelper reportDbHelper;
-    private ListView measurementResultListView;
     private ArrayAdapter<String> listArrayAdapter;
     CustomCursorAdapter customCursorAdapter;
 
@@ -26,8 +24,8 @@ public class IndexReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index_report);
 
-        reportDbHelper = new ReportDbHelper(this);
-        measurementResultListView = (ListView) findViewById(R.id.measurementList);
+        ReportDbHelper reportDbHelper = new ReportDbHelper(this);
+        ListView measurementResultListView = (ListView) findViewById(R.id.measurementList);
 
         ArrayList<String> measurementList = new ArrayList<>();
 
