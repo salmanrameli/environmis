@@ -18,7 +18,8 @@ public class ReportDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + ReportContract.ReportResultEntry.TABLE + " (" +
                 ReportContract.ReportResultEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ReportContract.ReportResultEntry.COL_LOCATION_NAME + " TEXT NOT NULL, " +
+                ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE + " TEXT NOT NULL, " +
+                ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE + " TEXT NOT NULL, " +
                 ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE + " TEXT NOT NULL, " +
                 ReportContract.ReportResultEntry.COL_MEASUREMENT_RESULT + " TEXT NOT NULL);";
 
@@ -27,7 +28,18 @@ public class ReportDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ReportContract.ReportResultEntry.TABLE);
-        onCreate(db);
+        if(oldVersion < 2)
+        {
+            db.execSQL("DROP TABLE IF EXISTS " + ReportContract.ReportResultEntry.TABLE);
+
+            String createTable = "CREATE TABLE " + ReportContract.ReportResultEntry.TABLE + " (" +
+                    ReportContract.ReportResultEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE + " TEXT NOT NULL, " +
+                    ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE + " TEXT NOT NULL, " +
+                    ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE + " TEXT NOT NULL, " +
+                    ReportContract.ReportResultEntry.COL_MEASUREMENT_RESULT + " TEXT NOT NULL);";
+
+            db.execSQL(createTable);
+        }
     }
 }

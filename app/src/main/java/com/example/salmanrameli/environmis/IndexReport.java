@@ -32,15 +32,18 @@ public class IndexReport extends AppCompatActivity {
         SQLiteDatabase db = reportDbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
-                new String[]{ReportContract.ReportResultEntry._ID, ReportContract.ReportResultEntry.COL_LOCATION_NAME, ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE},
+                new String[]{ReportContract.ReportResultEntry._ID,
+                        ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE, ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE},
                 null, null, null, null, null);
 
         while(cursor.moveToNext())
         {
-            int location_index = cursor.getColumnIndex(ReportContract.ReportResultEntry.COL_LOCATION_NAME);
+            int location_latitude_index = cursor.getColumnIndex(ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE);
+            int location_longitude_index = cursor.getColumnIndex(ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE);
             int date = cursor.getColumnIndex(ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE);
 
-            measurementList.add(cursor.getString(location_index));
+            measurementList.add(cursor.getString(location_latitude_index));
+            measurementList.add(cursor.getString(location_longitude_index));
             measurementList.add(cursor.getString(date));
         }
 

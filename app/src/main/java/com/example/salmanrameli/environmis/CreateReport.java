@@ -19,7 +19,8 @@ import java.util.Locale;
 
 public class CreateReport extends AppCompatActivity {
     private ReportDbHelper reportDbHelper;
-    EditText report_location_text;
+    EditText report_location_latitude_text;
+    EditText report_location_longitude_text;
     EditText report_date_text;
     EditText report_result_text;
     Calendar calendar = Calendar.getInstance();
@@ -31,7 +32,8 @@ public class CreateReport extends AppCompatActivity {
 
         reportDbHelper = new ReportDbHelper(this);
 
-        report_location_text = (EditText) findViewById(R.id.report_location_);
+        report_location_latitude_text = (EditText) findViewById(R.id.report_location_latitude);
+        report_location_longitude_text = (EditText) findViewById(R.id.report_location_longitude);
         report_date_text = (EditText) findViewById(R.id.report_date_);
         report_result_text = (EditText) findViewById(R.id.report_result_);
 
@@ -71,7 +73,8 @@ public class CreateReport extends AppCompatActivity {
 
     public void submitReportButtonOnClick(View view)
     {
-        String location_name = String.valueOf(report_location_text.getText());
+        String location_latitude = String.valueOf(report_location_latitude_text.getText());
+        String location_longitude = String.valueOf(report_location_longitude_text.getText());
         String measurement_date = String.valueOf(report_date_text.getText());
         String measurement_result = String.valueOf(report_result_text.getText());
 
@@ -79,7 +82,8 @@ public class CreateReport extends AppCompatActivity {
 
         ContentValues values = new ContentValues();
 
-        values.put(ReportContract.ReportResultEntry.COL_LOCATION_NAME, location_name);
+        values.put(ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE, location_latitude);
+        values.put(ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, location_longitude);
         values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE, measurement_date);
         values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_RESULT, measurement_result);
 
