@@ -49,57 +49,56 @@ class CustomCursorAdapter extends CursorAdapter {
 
         final long _id = cursor.getLong(cursor.getColumnIndex("_id"));
 
-//        deleteReportButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG, "delete " + _id);
-//
-//                db.delete(ReportContract.ReportResultEntry.TABLE,
-//                        ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)});
-//
-//                Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
-//                        new String[]{ReportContract.ReportResultEntry._ID, ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE, ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE},
-//                        null, null, null, null, null);
-//
-//
-//                notifyDataSetChanged();
-//
-//                changeCursor(cursor);
-//            }
-//        });
-//
-//        viewDetailsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG, "_id: " + String.valueOf(_id));
-//
-//                Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
-//                        null, ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)},
-//                        null, null, null);
-//
-//                if(cursor != null && cursor.moveToFirst())
-//                {
-//                    String location_latitude_report = cursor.getString(1);
-//                    String location_longitude_report = cursor.getString(2);
-//                    String date_report = cursor.getString(3);
-//                    String result_report = cursor.getString(4);
-//
-//                    Log.d(TAG, "location_latitude: " + location_latitude_report);
-//                    Log.d(TAG, "location_longitude: " + location_longitude_report);
-//                    Log.d(TAG, "date: " + date_report);
-//                    Log.d(TAG, "result: " + result_report);
-//                    cursor.close();
-//
-//                    Intent intent = new Intent(context, ShowReport.class);
-//
-//                    intent.putExtra("location_latitude", location_latitude_report);
-//                    intent.putExtra("location_longitude", location_longitude_report);
-//                    intent.putExtra("date", date_report);
-//                    intent.putExtra("result", result_report);
-//
-//                    context.startActivity(intent);
-//                }
-//            }
-//        });
+        deleteReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "delete " + _id);
+
+                db.delete(ReportContract.ReportResultEntry.TABLE,
+                        ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)});
+
+                Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
+                        new String[]{ReportContract.ReportResultEntry._ID, ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE, ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE},
+                        null, null, null, null, null);
+
+                notifyDataSetChanged();
+
+                changeCursor(cursor);
+            }
+        });
+
+        viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "_id: " + String.valueOf(_id));
+
+                Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
+                        null, ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)},
+                        null, null, null);
+
+                if(cursor != null && cursor.moveToFirst())
+                {
+                    String location_latitude_report = cursor.getString(1);
+                    String location_longitude_report = cursor.getString(2);
+                    String date_report = cursor.getString(3);
+                    String result_report = cursor.getString(4);
+
+                    Log.d(TAG, "location_latitude: " + location_latitude_report);
+                    Log.d(TAG, "location_longitude: " + location_longitude_report);
+                    Log.d(TAG, "date: " + date_report);
+                    Log.d(TAG, "result: " + result_report);
+                    cursor.close();
+
+                    Intent intent = new Intent(context, ShowReport.class);
+
+                    intent.putExtra("location_latitude", location_latitude_report);
+                    intent.putExtra("location_longitude", location_longitude_report);
+                    intent.putExtra("date", date_report);
+                    intent.putExtra("result", result_report);
+
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 }
