@@ -3,6 +3,7 @@ package com.example.salmanrameli.environmis;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.salmanrameli.db.ReportContract;
 import com.example.salmanrameli.db.ReportDbHelper;
+
+import java.util.Locale;
 
 public class CreateReport extends AppCompatActivity {
     private ReportDbHelper reportDbHelper;
@@ -31,30 +34,39 @@ public class CreateReport extends AppCompatActivity {
         report_date_text = (EditText) findViewById(R.id.report_date_);
         report_result_text = (EditText) findViewById(R.id.report_result_);
 
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-        showDate(year, month +1, day);
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        report_date_text.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(CreateReport.this, date, calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
     }
 
-    private DatePickerDialog.OnDateSetListener myDateListener = new
-            DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
-                }
-            };
+    private void updateLabel() {
 
-    private void showDate(int year, int month, int day) {
-        report_date_text.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
-    }
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
+
+        report_date_text.setText(sdf.format(calendar.getTime()));
+    };
 
     public void submitReportButtonOnClick(View view)
     {

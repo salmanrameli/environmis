@@ -10,16 +10,17 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
+        android:padding="10dp"
+        android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        android:weightSum="1">
+        tools:layout_editor_absoluteY="8dp">
 
         <EditText
             android:id="@+id/report_location_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Location name"
+            android:hint="Location"
             android:inputType="textPersonName" />
 
         <EditText
@@ -27,14 +28,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:focusable="false"
             android:hint="Date"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/report_result_"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.86"
+            android:layout_height="match_parent"
+            android:layout_weight="0.96"
             android:ems="10"
             android:hint="Measurement result"
             android:inputType="textMultiLine" />
