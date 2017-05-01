@@ -18,7 +18,7 @@ import com.example.salmanrameli.db.ReportDbHelper;
  * Created by SalmanRameli on 4/30/17.
  */
 
-public class CustomCursorAdapter extends CursorAdapter {
+class CustomCursorAdapter extends CursorAdapter {
     private String TAG = "CustomCursorAdapter";
 
     CustomCursorAdapter(Context context, Cursor c) {
@@ -35,7 +35,8 @@ public class CustomCursorAdapter extends CursorAdapter {
         ReportDbHelper reportDbHelper = new ReportDbHelper(context);
         final SQLiteDatabase db = reportDbHelper.getWritableDatabase();
 
-        Button deleteButton = (Button) view.findViewById(R.id.deleteMeasurementbutton);
+        Button deleteReportButton = (Button) view.findViewById(R.id.deleteMeasurementbutton);
+        Button viewDetailsButton = (Button) view.findViewById(R.id.viewDetailsButton);
 
         TextView location_text = (TextView) view.findViewById(R.id.report_location);
         TextView date_text = (TextView) view.findViewById(R.id.report_date);
@@ -43,15 +44,15 @@ public class CustomCursorAdapter extends CursorAdapter {
         location_text.setText(cursor.getString(cursor.getColumnIndex("report_location")));
         date_text.setText(cursor.getString(cursor.getColumnIndex("report_date")));
 
-        final String location = cursor.getString(cursor.getColumnIndex("report_location"));
+        final long _id = cursor.getLong(cursor.getColumnIndex("_id"));
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        deleteReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "delete " + location);
+                Log.d(TAG, "delete " + _id);
 
                 db.delete(ReportContract.ReportResultEntry.TABLE,
-                        ReportContract.ReportResultEntry.COL_LOCATION_NAME + " = ?", new String[]{location});
+                        ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)});
 
                 Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
                         new String[]{ReportContract.ReportResultEntry._ID, ReportContract.ReportResultEntry.COL_LOCATION_NAME, ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE},
@@ -59,7 +60,31 @@ public class CustomCursorAdapter extends CursorAdapter {
 
 
                 notifyDataSetChanged();
+
                 changeCursor(cursor);
+            }
+        });
+
+        viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "_id: " + String.valueOf(_id));
+
+                Cursor cursor = db.query(ReportContract.ReportResultEntry.TABLE,
+                        null, ReportContract.ReportResultEntry._ID + " = ?", new String[]{String.valueOf(_id)},
+                        null, null, null);
+
+                if(cursor != null && cursor.moveToFirst())
+                {
+                    String location_report = cursor.getString(1);
+                    String date_report = cursor.getString(2);
+                    String result_report = cursor.getString(3);
+
+                    Log.d(TAG, "location: " + location_report);
+                    Log.d(TAG, "date: " + date_report);
+                    Log.d(TAG, "result: " + result_report);
+                    cursor.close();
+                }
             }
         });
     }
