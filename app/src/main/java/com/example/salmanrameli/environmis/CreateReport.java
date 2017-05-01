@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.salmanrameli.db.ReportContract;
 import com.example.salmanrameli.db.ReportDbHelper;
@@ -88,6 +89,8 @@ public class CreateReport extends AppCompatActivity {
                 SQLiteDatabase.CONFLICT_REPLACE);
 
         db.close();
+
+        Toast.makeText(this, "Report submitted", Toast.LENGTH_LONG).show();
 
         finish();
     }
