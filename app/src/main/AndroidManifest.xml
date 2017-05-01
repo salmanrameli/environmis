@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateReport" />
-        <activity android:name=".IndexReport"></activity>
+        <activity android:name=".IndexReport" />
+        <activity android:name=".ShowReport"></activity>
     </application>
 
 </manifest>

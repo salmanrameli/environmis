@@ -1,6 +1,7 @@
 package com.example.salmanrameli.environmis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -31,7 +32,7 @@ class CustomCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, final Cursor cursor) {
+    public void bindView(View view, final Context context, final Cursor cursor) {
         ReportDbHelper reportDbHelper = new ReportDbHelper(context);
         final SQLiteDatabase db = reportDbHelper.getWritableDatabase();
 
@@ -84,6 +85,14 @@ class CustomCursorAdapter extends CursorAdapter {
                     Log.d(TAG, "date: " + date_report);
                     Log.d(TAG, "result: " + result_report);
                     cursor.close();
+
+                    Intent intent = new Intent(context, ShowReport.class);
+
+                    intent.putExtra("location", location_report);
+                    intent.putExtra("date", date_report);
+                    intent.putExtra("result", result_report);
+
+                    context.startActivity(intent);
                 }
             }
         });
