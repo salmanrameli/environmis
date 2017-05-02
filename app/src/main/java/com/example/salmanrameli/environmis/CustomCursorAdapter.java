@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.salmanrameli.db.ReportContract;
 import com.example.salmanrameli.db.ReportDbHelper;
@@ -62,6 +63,8 @@ class CustomCursorAdapter extends CursorAdapter {
                         null, null, null, null, null);
 
                 notifyDataSetChanged();
+
+                Toast.makeText(context.getApplicationContext(), "Report deleted", Toast.LENGTH_LONG).show();
 
                 changeCursor(cursor);
             }
