@@ -52,7 +52,10 @@ public class SignIn extends AppCompatActivity {
         String db_password = cursor.getString(cursor.getColumnIndex("staff_password"));
 
         if(password.equals(db_password)) {
-            Toast.makeText(SignIn.this, "Success!", Toast.LENGTH_LONG).show();
+            String username_session = cursor.getString(cursor.getColumnIndex("staff_name"));
+            String role_session = cursor.getString(cursor.getColumnIndex("staff_role"));
+
+            Toast.makeText(SignIn.this, "Login success for\nuser: " + username_session + "\nrole: " + role_session, Toast.LENGTH_LONG).show();
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
 

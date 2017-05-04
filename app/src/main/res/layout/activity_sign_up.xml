@@ -51,6 +51,26 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="125dp" />
 
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/reportValidatorRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Report Validator" />
+
+            <RadioButton
+                android:id="@+id/measurementStaffRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Measurement Staff" />
+        </RadioGroup>
+
         <Button
             android:id="@+id/buttonCreateAccount"
             android:layout_width="match_parent"
