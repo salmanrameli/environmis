@@ -25,7 +25,8 @@
         <activity android:name=".ShowReport" />
         <activity android:name=".SignUp" />
         <activity android:name=".SignIn" />
-        <activity android:name=".Home"></activity>
+        <activity android:name=".HomeMeasurementStaff" />
+        <activity android:name=".HomeValidatorStaff"></activity>
     </application>
 
 </manifest>

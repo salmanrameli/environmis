@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class Home extends AppCompatActivity {
+public class HomeMeasurementStaff extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +24,6 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void viewReportButtonOnClick(View view)
-    {
-        Intent intent = new Intent(this, IndexReport.class);
-
-        startActivity(intent);
-    }
-
     public void signOutButtonOnClick(View view)
     {
         SharedPreferences sharedPreferences = getSharedPreferences(SignIn.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -40,7 +33,8 @@ public class Home extends AppCompatActivity {
         editor.clear();
         editor.apply();
 
-        Intent intent = new Intent(Home.this, MainActivity.class);
+        Intent intent = new Intent(HomeMeasurementStaff.this, MainActivity.class);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

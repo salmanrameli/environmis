@@ -63,9 +63,15 @@ public class SignIn extends AppCompatActivity {
             editor.putString(password_key, password);
             editor.apply();
 
-            Intent intent = new Intent(SignIn.this, Home.class);
+            if(role_session.equals("measurement")) {
+                Intent intent = new Intent(SignIn.this, HomeMeasurementStaff.class);
 
-            startActivity(intent);
+                startActivity(intent);
+            } else if(role_session.equals("validator")) {
+                Intent intent = new Intent(SignIn.this, HomeValidatorStaff.class);
+
+                startActivity(intent);
+            }
         }
         else {
             Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_LONG).show();
