@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.salmanrameli.environmis.MainActivity">
+    tools:context="com.example.salmanrameli.environmis.Home">
 
     <LinearLayout
         android:layout_width="368dp"
@@ -14,20 +14,24 @@
         tools:layout_editor_absoluteY="8dp">
 
         <Button
-            android:id="@+id/signUpButtonMain"
+            android:id="@+id/addMeasurementResultButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="signUpButtonOnClick"
-            android:text="Sign Up"
-            android:visibility="visible" />
+            android:onClick="createReport"
+            android:text="Create Report"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1" />
 
         <Button
-            android:id="@+id/signInButton"
+            android:id="@+id/viewMeasurementResultButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="signInButtonOnClick"
-            android:text="Sign In"
-            android:visibility="visible" />
+            android:onClick="viewReportButtonOnClick"
+            android:text="View Report"
+            app:layout_constraintTop_toBottomOf="@+id/addMeasurementResultButton"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
 
     </LinearLayout>
 

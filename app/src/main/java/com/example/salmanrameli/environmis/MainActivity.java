@@ -13,17 +13,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void createReport(View view)
-    {
-        Intent intent = new Intent(this, CreateReport.class);
+    public void signUpButtonOnClick(View view) {
+        Intent intent = new Intent(MainActivity.this, SignUp.class);
 
         startActivity(intent);
     }
 
-    public void viewReportButtonOnClick(View view)
-    {
-        Intent intent = new Intent(this, IndexReport.class);
+    public void signInButtonOnClick(View view) {
+        Intent intent = new Intent(MainActivity.this, SignIn.class);
 
         startActivity(intent);
+    }
+
+    protected void OnDestroy() {
+        super.onDestroy();
     }
 }
