@@ -81,11 +81,15 @@ class CustomCursorAdapter extends CursorAdapter {
 
                 if(cursor != null && cursor.moveToFirst())
                 {
+                    String report_id = String.valueOf(_id);
                     String location_latitude_report = cursor.getString(1);
                     String location_longitude_report = cursor.getString(2);
                     String date_report = cursor.getString(3);
                     String result_report = cursor.getString(4);
+                    String staff_id = cursor.getString(5);
 
+                    Log.d(TAG, "report id:" + report_id);
+                    Log.d(TAG, "staff id: " + staff_id);
                     Log.d(TAG, "location_latitude: " + location_latitude_report);
                     Log.d(TAG, "location_longitude: " + location_longitude_report);
                     Log.d(TAG, "date: " + date_report);
@@ -98,6 +102,8 @@ class CustomCursorAdapter extends CursorAdapter {
                     intent.putExtra("location_longitude", location_longitude_report);
                     intent.putExtra("date", date_report);
                     intent.putExtra("result", result_report);
+                    intent.putExtra("staff_id", staff_id);
+                    intent.putExtra("report_id", report_id);
 
                     context.startActivity(intent);
                 }

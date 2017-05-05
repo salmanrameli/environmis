@@ -6,27 +6,50 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location Latitude"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/list_report_location_latitude_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:paddingTop="2dp"
         android:text="Location latitude"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Location Longitude"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/list_report_location_longitude_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:paddingTop="2dp"
         android:text="Location longitude"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Measurement Date"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/report_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date"
-        android:padding="10dp"
+        android:paddingTop="2dp"
         android:textSize="16sp" />
 
     <LinearLayout

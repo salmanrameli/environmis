@@ -15,39 +15,105 @@
         tools:layout_editor_absoluteY="8dp">
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Report ID"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewReportId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="2dp"
+            android:text="Report ID"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Staff ID"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewStaffId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="2dp"
+            android:text="Staff ID"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Location Latitude"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textViewLocationLatitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="2dp"
             android:text="Location latitude"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Location Longitude"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewLocationLongitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="2dp"
             android:text="Location longitude"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Measurement Date"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="2dp"
             android:text="Date"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Measurement Result"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="2dp"
             android:text="Result"
             android:textSize="18sp" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

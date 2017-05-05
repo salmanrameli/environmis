@@ -12,6 +12,8 @@ public class ShowReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_report);
 
+        TextView reportIdTextView = (TextView) findViewById(R.id.textViewReportId);
+        TextView staffIdTextView = (TextView) findViewById(R.id.textViewStaffId);
         TextView locationLatitudeTextView = (TextView) findViewById(R.id.textViewLocationLatitude);
         TextView locationLongitudeTextView = (TextView) findViewById(R.id.textViewLocationLongitude);
         TextView dateTextView = (TextView) findViewById(R.id.textViewDate);
@@ -23,10 +25,14 @@ public class ShowReport extends AppCompatActivity {
         String location_longitude = intent.getStringExtra("location_longitude");
         String date = intent.getStringExtra("date");
         String result = intent.getStringExtra("result");
+        String report_id = intent.getStringExtra("report_id");
+        String staff_id = intent.getStringExtra("staff_id");
 
-        locationLatitudeTextView.setText("Location latitude:\n" + location_latitude);
-        locationLongitudeTextView.setText("Location longitude:\n" + location_longitude);
-        dateTextView.setText("Measurement Date:\n" + date);
-        resultTextView.setText("Measurement Result:\n" + result);
+        locationLatitudeTextView.setText(location_latitude);
+        locationLongitudeTextView.setText(location_longitude);
+        dateTextView.setText(date);
+        resultTextView.setText(result);
+        staffIdTextView.setText(staff_id);
+        reportIdTextView.setText(report_id);
     }
 }
