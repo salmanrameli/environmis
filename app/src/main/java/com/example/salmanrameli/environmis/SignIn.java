@@ -52,6 +52,7 @@ public class SignIn extends AppCompatActivity {
         String db_password = cursor.getString(cursor.getColumnIndex("staff_password"));
 
         if(password.equals(db_password)) {
+            String user_id_session = cursor.getString(cursor.getColumnIndex("_id"));
             String username_session = cursor.getString(cursor.getColumnIndex("staff_name"));
             String role_session = cursor.getString(cursor.getColumnIndex("staff_role"));
 
@@ -59,16 +60,24 @@ public class SignIn extends AppCompatActivity {
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
 
-            editor.putString(id_key, user_id);
-            editor.putString(password_key, password);
-            editor.apply();
-
             if(role_session.equals("measurement")) {
+                editor.putString(id_key, user_id);
+                editor.putString(password_key, password);
+                editor.apply();
+
                 Intent intent = new Intent(SignIn.this, HomeMeasurementStaff.class);
+
+                intent.putExtra("user_id_session", user_id_session);
 
                 startActivity(intent);
             } else if(role_session.equals("validator")) {
+                editor.putString(id_key, user_id);
+                editor.putString(password_key, password);
+                editor.apply();
+
                 Intent intent = new Intent(SignIn.this, HomeValidatorStaff.class);
+
+                intent.putExtra("user_id_session", user_id_session);
 
                 startActivity(intent);
             }

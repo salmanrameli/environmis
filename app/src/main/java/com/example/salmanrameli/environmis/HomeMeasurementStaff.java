@@ -14,12 +14,15 @@ public class HomeMeasurementStaff extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SignIn.MyPREFERENCES, Context.MODE_PRIVATE);
     }
 
     public void createReport(View view)
     {
         Intent intent = new Intent(this, CreateReport.class);
+
+        String _id = getIntent().getStringExtra("user_id_session");
+
+        intent.putExtra("user_id_session", _id);
 
         startActivity(intent);
     }

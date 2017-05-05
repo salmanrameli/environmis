@@ -27,6 +27,7 @@ public class CreateReport extends AppCompatActivity {
     EditText report_location_longitude_text;
     EditText report_date_text;
     EditText report_result_text;
+    String user_session_id;
     Calendar calendar = Calendar.getInstance();
     double latitude_val;
     double longitude_val;
@@ -45,6 +46,8 @@ public class CreateReport extends AppCompatActivity {
         report_location_longitude_text = (EditText) findViewById(R.id.report_location_longitude);
         report_date_text = (EditText) findViewById(R.id.report_date_);
         report_result_text = (EditText) findViewById(R.id.report_result_);
+
+        user_session_id = getIntent().getStringExtra("user_id_session");
 
         try {
             if(ActivityCompat.checkSelfPermission(this, permission)
@@ -67,10 +70,12 @@ public class CreateReport extends AppCompatActivity {
                     latitude_val = gps.getLatitude();
                     longitude_val = gps.getLongitude();
 
+                    report_location_latitude_text.setText("");
+                    report_location_longitude_text.setText("");
+
                     report_location_latitude_text.setText(String.valueOf(latitude_val));
                     report_location_longitude_text.setText(String.valueOf(longitude_val));
 
-//                    Toast.makeText(getApplicationContext(), "Latitude: " + latitude_val + "\nLongitude: " + longitude_val, Toast.LENGTH_LONG).show();
                 } else {
                     gps.showSettingsAlert();
                 }
@@ -128,6 +133,7 @@ public class CreateReport extends AppCompatActivity {
         values.put(ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, location_longitude);
         values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE, measurement_date);
         values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_RESULT, measurement_result);
+        values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_STAFF_ID, user_session_id);
 
         db.insertWithOnConflict(ReportContract.ReportResultEntry.TABLE,
                 null,
