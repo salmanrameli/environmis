@@ -10,28 +10,59 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location Latitude"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/assignTaskLocationLatitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Location Latitude" />
+            android:hint="Location Latitude"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Location Longitude"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/assignTaskLocationLongitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Location Longitude" />
+            android:hint="Location Longitude"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Staff"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submitAssignTaskButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="assignTaskButtonOnClick"
+            android:text="Assign Task" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
