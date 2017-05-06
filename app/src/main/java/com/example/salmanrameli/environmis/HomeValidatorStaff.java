@@ -22,6 +22,13 @@ public class HomeValidatorStaff extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void assignTaskButtonOnClick(View view)
+    {
+        Intent intent = new Intent(this, AssignTask.class);
+
+        startActivity(intent);
+    }
+
     public void validatorSignOutButtonOnClick(View view)
     {
         SharedPreferences sharedPreferences = getSharedPreferences(SignIn.MyPREFERENCES, Context.MODE_PRIVATE);
