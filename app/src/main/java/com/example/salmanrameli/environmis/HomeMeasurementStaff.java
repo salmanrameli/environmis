@@ -8,19 +8,27 @@ import android.os.Bundle;
 import android.view.View;
 
 public class HomeMeasurementStaff extends AppCompatActivity {
+    String _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        _id = getIntent().getStringExtra("user_id_session");
     }
 
     public void createReport(View view)
     {
         Intent intent = new Intent(this, CreateReport.class);
 
-        String _id = getIntent().getStringExtra("user_id_session");
+        intent.putExtra("user_id_session", _id);
+
+        startActivity(intent);
+    }
+
+    public void measurementCheckTaskButtonOnClick(View view) {
+        Intent intent = new Intent(this, MeasurementCheckTask.class);
 
         intent.putExtra("user_id_session", _id);
 

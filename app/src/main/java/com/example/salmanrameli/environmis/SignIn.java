@@ -44,7 +44,7 @@ public class SignIn extends AppCompatActivity {
         if(cursor.getCount() < 1) {
             cursor.close();
 
-            Toast.makeText(SignIn.this, "User not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignIn.this, "User not found", Toast.LENGTH_SHORT).show();
         }
 
         cursor.moveToFirst();
@@ -56,7 +56,7 @@ public class SignIn extends AppCompatActivity {
             String username_session = cursor.getString(cursor.getColumnIndex("staff_name"));
             String role_session = cursor.getString(cursor.getColumnIndex("staff_role"));
 
-            Toast.makeText(SignIn.this, "Login success for\nuser: " + username_session + "\nrole: " + role_session, Toast.LENGTH_LONG).show();
+            Toast.makeText(SignIn.this, "Login success for\nuser: " + username_session + "\nrole: " + role_session, Toast.LENGTH_SHORT).show();
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -83,7 +83,7 @@ public class SignIn extends AppCompatActivity {
             }
         }
         else {
-            Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
         }
     }
 }

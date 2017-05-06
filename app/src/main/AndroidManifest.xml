@@ -27,7 +27,8 @@
         <activity android:name=".SignIn" />
         <activity android:name=".HomeMeasurementStaff" />
         <activity android:name=".HomeValidatorStaff" />
-        <activity android:name=".AssignTask"></activity>
+        <activity android:name=".AssignTask" />
+        <activity android:name=".MeasurementCheckTask"></activity>
     </application>
 
 </manifest>

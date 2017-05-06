@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location Latitude"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/checkTaskLocationLatitudeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="location latitude"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:text="Location Longitude"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/checkTaskLocationLongitudeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="location longitude"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:text="Staff ID"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/checkTaskStaffIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="staff id"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
+</LinearLayout>

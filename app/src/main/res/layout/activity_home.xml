@@ -23,6 +23,13 @@
             tools:layout_constraintTop_creator="1" />
 
         <Button
+            android:id="@+id/measurementCheckTaskButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="measurementCheckTaskButtonOnClick"
+            android:text="Check Task" />
+
+        <Button
             android:id="@+id/signOutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
