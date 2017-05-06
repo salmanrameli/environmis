@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.salmanrameli.db.AssignTaskContract;
 import com.example.salmanrameli.db.AssignTaskDbHelper;
@@ -23,8 +22,6 @@ public class MeasurementCheckTask extends AppCompatActivity {
 
         String user_id = getIntent().getStringExtra("user_id_session");
 
-        Toast.makeText(this, "user id: " + user_id, Toast.LENGTH_SHORT).show();
-
         SQLiteDatabase db = assignTaskDbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(AssignTaskContract.AssignTaskEntry.TABLE,
@@ -33,6 +30,5 @@ public class MeasurementCheckTask extends AppCompatActivity {
 
         measurementCheckTaskCursorAdapter = new MeasurementCheckTaskCursorAdapter(this, cursor);
         checkTaskListView.setAdapter(measurementCheckTaskCursorAdapter);
-
     }
 }

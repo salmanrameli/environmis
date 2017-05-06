@@ -6,10 +6,29 @@
     android:padding="10dp">
 
     <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task ID"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/taskIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="task id"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="15dp"
         android:text="Location Latitude"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -18,7 +37,8 @@
         android:layout_height="wrap_content"
         android:hint="location latitude"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="5dp"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView14"
@@ -26,6 +46,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:text="Location Longitude"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -34,7 +55,8 @@
         android:layout_height="wrap_content"
         android:hint="location longitude"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="5dp"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView15"
@@ -42,6 +64,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:text="Staff ID"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -49,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="staff id"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
+        android:paddingBottom="15dp"
+        android:paddingTop="5dp"
+        android:textSize="16sp" />
 </LinearLayout>
