@@ -2,8 +2,6 @@ package com.example.salmanrameli.environmis;
 
 import android.app.DatePickerDialog;
 import android.Manifest;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v4.app.ActivityCompat;
@@ -16,43 +14,59 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.salmanrameli.db.ReportContract;
-import com.example.salmanrameli.db.ReportDbHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CreateReport extends AppCompatActivity {
-    private ReportDbHelper reportDbHelper;
+    GPSTracker gps;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
+    Button getLocationButton;
+    Button submitButton;
     EditText report_location_latitude_text;
     EditText report_location_longitude_text;
     EditText report_date_text;
     EditText report_result_text;
-    String user_session_id;
+    String _id;
+
     Calendar calendar = Calendar.getInstance();
+
     double latitude_val;
     double longitude_val;
 
-    Button getLocationButton;
     private static final int REQUEST_CODE_PERMISSION = 2;
     String permission = Manifest.permission.ACCESS_FINE_LOCATION;
-    GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_report);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        _id = firebaseUser.getUid();
+
         report_location_latitude_text = (EditText) findViewById(R.id.report_location_latitude);
         report_location_longitude_text = (EditText) findViewById(R.id.report_location_longitude);
         report_date_text = (EditText) findViewById(R.id.report_date_);
         report_result_text = (EditText) findViewById(R.id.report_result_);
 
-        user_session_id = getIntent().getStringExtra("user_id_session");
 
         try {
-            if(ActivityCompat.checkSelfPermission(this, permission)
-                    != MockPackageManager.PERMISSION_GRANTED)
-            {
+            if(ActivityCompat.checkSelfPermission(this, permission) != MockPackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE_PERMISSION);
             }
         } catch (Exception e) {
@@ -82,8 +96,6 @@ public class CreateReport extends AppCompatActivity {
             }
         });
 
-        reportDbHelper = new ReportDbHelper(this);
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -108,42 +120,39 @@ public class CreateReport extends AppCompatActivity {
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        submitButton = (Button) findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String location_latitude = String.valueOf(report_location_latitude_text.getText());
+                String location_longitude = String.valueOf(report_location_longitude_text.getText());
+                String measurement_date = String.valueOf(report_date_text.getText());
+                String measurement_result = String.valueOf(report_result_text.getText());
+
+                Map<String, String> map = new HashMap<String, String>();
+
+                map.put("staff_id", _id);
+                map.put("location_latitude", location_latitude);
+                map.put("location_longitude", location_longitude);
+                map.put("measurement_date", measurement_date);
+                map.put("measurement_result", measurement_result);
+
+                databaseReference.child("reports").push().setValue(map);
+
+                Toast.makeText(CreateReport.this, "Report submitted", Toast.LENGTH_LONG).show();
+
+                finish();
+            }
+        });
     }
 
     private void updateLabel() {
 
-        String myFormat = "dd/MM/yy"; //In which you need put here
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
         report_date_text.setText(sdf.format(calendar.getTime()));
     };
-
-    public void submitReportButtonOnClick(View view)
-    {
-        String location_latitude = String.valueOf(report_location_latitude_text.getText());
-        String location_longitude = String.valueOf(report_location_longitude_text.getText());
-        String measurement_date = String.valueOf(report_date_text.getText());
-        String measurement_result = String.valueOf(report_result_text.getText());
-
-        SQLiteDatabase db = reportDbHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(ReportContract.ReportResultEntry.COL_LOCATION_LATITUDE, location_latitude);
-        values.put(ReportContract.ReportResultEntry.COL_LOCATION_LONGITUDE, location_longitude);
-        values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_DATE, measurement_date);
-        values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_RESULT, measurement_result);
-        values.put(ReportContract.ReportResultEntry.COL_MEASUREMENT_STAFF_ID, user_session_id);
-
-        db.insertWithOnConflict(ReportContract.ReportResultEntry.TABLE,
-                null,
-                values,
-                SQLiteDatabase.CONFLICT_REPLACE);
-
-        db.close();
-
-        Toast.makeText(this, "Report submitted", Toast.LENGTH_LONG).show();
-
-        finish();
-    }
 }
