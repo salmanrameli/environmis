@@ -14,24 +14,14 @@
         tools:layout_editor_absoluteY="8dp">
 
         <EditText
-            android:id="@+id/editTextId"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="ID"
+            android:hint="E-Mail"
             android:inputType="text"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp" />
-
-        <EditText
-            android:id="@+id/editTextUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Name"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="43dp">
-
-        </EditText>
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -51,31 +41,11 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="125dp" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/reportValidatorRadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Report Validator" />
-
-            <RadioButton
-                android:id="@+id/measurementStaffRadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Measurement Staff" />
-        </RadioGroup>
-
         <Button
-            android:id="@+id/buttonCreateAccount"
+            android:id="@+id/buttonSIgnUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Account"
+            android:text="Sign Up"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="447dp" />
 

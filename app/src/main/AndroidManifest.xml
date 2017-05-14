@@ -28,7 +28,8 @@
         <activity android:name=".HomeMeasurementStaff" />
         <activity android:name=".HomeValidatorStaff" />
         <activity android:name=".AssignTask" />
-        <activity android:name=".MeasurementCheckTask"></activity>
+        <activity android:name=".MeasurementCheckTask" />
+        <activity android:name=".FillAccountDetails"></activity>
     </application>
 
 </manifest>

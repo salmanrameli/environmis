@@ -1,89 +1,103 @@
 package com.example.salmanrameli.environmis;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.salmanrameli.db.StaffContract;
-import com.example.salmanrameli.db.StaffDbHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignIn extends AppCompatActivity {
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String id_key = "id_key";
-    public static final String password_key = "password_key";
-    SharedPreferences sharedpreferences;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    String user_id, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        Button loginButton = (Button) findViewById(R.id.formSignInButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText userNameInput = (EditText) findViewById(R.id.userNameInputSignIn);
+                EditText passwordInput = (EditText) findViewById(R.id.passwordInputSignIn);
+
+                user_id = userNameInput.getText().toString();
+                password = passwordInput.getText().toString();
+
+                if(user_id.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(SignIn.this, "Vacant Field", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    firebaseAuth = FirebaseAuth.getInstance();
+
+                    firebaseAuth.signInWithEmailAndPassword(user_id, password).addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                firebaseUser = firebaseAuth.getCurrentUser();
+                                firebaseDatabase = FirebaseDatabase.getInstance();
+                                databaseReference = firebaseDatabase.getReference();
+
+                                String _id = firebaseUser.getUid();
+
+                                databaseReference.child("users").child(_id).child("role").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String role = dataSnapshot.getValue(String.class);
+
+                                        if(role.equals("validator")) {
+                                            Intent intent = new Intent(SignIn.this, HomeValidatorStaff.class);
+
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                            startActivity(intent);
+                                        }
+                                        if(role.equals("measurement")) {
+                                            Intent intent = new Intent(SignIn.this, HomeMeasurementStaff.class);
+
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     public void loginButtonOnClick(View view) {
-        EditText userNameInput = (EditText) findViewById(R.id.userNameInputSignIn);
-        EditText passwordInput = (EditText) findViewById(R.id.passwordInputSignIn);
 
-        String user_id = userNameInput.getText().toString();
-        String password = passwordInput.getText().toString();
-
-        StaffDbHelper staffDbHelper = new StaffDbHelper(this);
-
-        SQLiteDatabase db = staffDbHelper.getReadableDatabase();
-
-        Cursor cursor = db.query(StaffContract.StaffEntry.TABLE, null, StaffContract.StaffEntry._ID + " = ?", new String[]{user_id}, null, null, null, null);
-
-        if(cursor.getCount() < 1) {
-            cursor.close();
-
-            Toast.makeText(SignIn.this, "User not found", Toast.LENGTH_SHORT).show();
-        }
-
-        cursor.moveToFirst();
-
-        String db_password = cursor.getString(cursor.getColumnIndex("staff_password"));
-
-        if(password.equals(db_password)) {
-            String user_id_session = cursor.getString(cursor.getColumnIndex("_id"));
-            String username_session = cursor.getString(cursor.getColumnIndex("staff_name"));
-            String role_session = cursor.getString(cursor.getColumnIndex("staff_role"));
-
-            Toast.makeText(SignIn.this, "Login success for\nuser: " + username_session + "\nrole: " + role_session, Toast.LENGTH_SHORT).show();
-
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-
-            if(role_session.equals("measurement")) {
-                editor.putString(id_key, user_id);
-                editor.putString(password_key, password);
-                editor.apply();
-
-                Intent intent = new Intent(SignIn.this, HomeMeasurementStaff.class);
-
-                intent.putExtra("user_id_session", user_id_session);
-
-                startActivity(intent);
-            } else if(role_session.equals("validator")) {
-                editor.putString(id_key, user_id);
-                editor.putString(password_key, password);
-                editor.apply();
-
-                Intent intent = new Intent(SignIn.this, HomeValidatorStaff.class);
-
-                intent.putExtra("user_id_session", user_id_session);
-
-                startActivity(intent);
-            }
-        }
-        else {
-            Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
-        }
     }
 }

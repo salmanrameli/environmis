@@ -10,15 +10,25 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingBottom="15dp"
+            android:text="Fill Your Credentials Below"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/userNameInputSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="ID"
+            android:hint="email@email.com"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp">
 
@@ -39,7 +49,6 @@
             android:id="@+id/formSignInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="loginButtonOnClick"
             android:text="Sign In"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
