@@ -1,7 +1,9 @@
 package com.example.salmanrameli.environmis;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,14 +15,21 @@ import android.widget.Toast;
 
 import com.example.salmanrameli.db.StaffContract;
 import com.example.salmanrameli.db.StaffDbHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp extends AppCompatActivity {
     RadioButton radioButton;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         StaffDbHelper staffDbHelper = new StaffDbHelper(this);
 
@@ -37,8 +46,8 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id = user_id.getText().toString();
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                String username = usernameEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
                 String confirm_password = confirmPassword.getText().toString();
                 int selectedRadioButton = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(selectedRadioButton);
@@ -55,28 +64,38 @@ public class SignUp extends AppCompatActivity {
 
                     switch (selectedRadioButton) {
                         case R.id.measurementStaffRadioButton:
-                            values = new ContentValues();
+                            firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()) {
+                                        Intent intent = new Intent(SignUp.this, MainActivity.class);
 
-                            values.put(StaffContract.StaffEntry._ID, id);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_NAME, username);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_PASS, password);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_ROLE, "measurement");
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                            db.insertWithOnConflict(StaffContract.StaffEntry.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
 
                             Toast.makeText(SignUp.this, "Sign up success!", Toast.LENGTH_LONG).show();
 
                             break;
 
                         case R.id.reportValidatorRadioButton: {
-                            values = new ContentValues();
+                            firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()) {
+                                        Intent intent = new Intent(SignUp.this, MainActivity.class);
 
-                            values.put(StaffContract.StaffEntry._ID, id);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_NAME, username);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_PASS, password);
-                            values.put(StaffContract.StaffEntry.COL_STAFF_ROLE, "validator");
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
 
-                            db.insertWithOnConflict(StaffContract.StaffEntry.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 
                             Toast.makeText(SignUp.this, "Sign up success!", Toast.LENGTH_LONG).show();
 
