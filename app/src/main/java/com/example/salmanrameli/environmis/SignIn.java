@@ -96,8 +96,4 @@ public class SignIn extends AppCompatActivity {
         });
 
     }
-
-    public void loginButtonOnClick(View view) {
-
-    }
 }
