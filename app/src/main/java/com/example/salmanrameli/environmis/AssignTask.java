@@ -1,7 +1,5 @@
 package com.example.salmanrameli.environmis;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +9,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.salmanrameli.db.AssignTaskContract;
-import com.example.salmanrameli.db.AssignTaskDbHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,10 +18,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AssignTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private AssignTaskDbHelper assignTaskDbHelper;
     EditText location_latitude;
     EditText location_longitude;
     Spinner spinner;
@@ -48,6 +45,9 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
 
         location_latitude = (EditText) findViewById(R.id.assignTaskLocationLatitude);
         location_longitude = (EditText) findViewById(R.id.assignTaskLocationLongitude);
+
+        location_latitude.setText("-7.279228");
+        location_longitude.setText("112.790819");
 
         databaseReference.child("users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,23 +95,14 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         String location_lat = String.valueOf(location_latitude.getText().toString());
         String location_long = String.valueOf(location_longitude.getText().toString());
 
-        assignTaskDbHelper = new AssignTaskDbHelper(this);
+        Map<String, String> map = new HashMap<>();
 
-        SQLiteDatabase db = assignTaskDbHelper.getWritableDatabase();
+        map.put("location_latitude", location_lat);
+        map.put("location_longitude", location_long);
+        map.put("staff_id", selected_staff);
+        map.put("is_done", "false");
 
-        ContentValues values = new ContentValues();
-
-        values.put(AssignTaskContract.AssignTaskEntry.COL_LOCATION_LATITUDE, location_lat);
-        values.put(AssignTaskContract.AssignTaskEntry.COL_LOCATION_LONGITUDE, location_long);
-        values.put(AssignTaskContract.AssignTaskEntry.COL_STAFF_ID, selected_staff);
-        values.put(AssignTaskContract.AssignTaskEntry.COL_IS_DONE, "false");
-
-        db.insertWithOnConflict(AssignTaskContract.AssignTaskEntry.TABLE,
-                null,
-                values,
-                SQLiteDatabase.CONFLICT_REPLACE);
-
-        db.close();
+        databaseReference.child("todo").push().setValue(map);
 
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 
