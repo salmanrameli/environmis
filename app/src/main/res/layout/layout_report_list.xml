@@ -52,24 +52,42 @@
         android:paddingTop="2dp"
         android:textSize="16sp" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingTop="10dp"
+        android:text="Measurement Result"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/measurement_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:text="Result" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <Button
             android:id="@+id/viewDetailsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View Details" />
+            android:text="View Details"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/deleteMeasurementbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete Report" />
+            android:text="Delete Report"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
