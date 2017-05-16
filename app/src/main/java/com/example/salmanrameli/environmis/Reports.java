@@ -1,28 +1,28 @@
 package com.example.salmanrameli.environmis;
 
 class Reports {
-    private String _id;
+    private String staff_id;
     private String location_latitude;
     private String location_longitude;
-    private String date;
-    private String result;
+    private String measurement_date;
+    private String measurement_result;
 
     public Reports()
     {
 
     }
 
-    public Reports(String id, String location_latitude, String location_longitude, String date, String result)
+    public Reports(String staff_id, String location_latitude, String location_longitude, String measurement_date, String measurement_result)
     {
-        this._id = id;
+        this.staff_id = staff_id;
         this.location_latitude = location_latitude;
         this.location_longitude = location_longitude;
-        this.date = date;
-        this.result = result;
+        this.measurement_date = measurement_date;
+        this.measurement_result = measurement_result;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void set_id(String staff_id) {
+        this.staff_id = staff_id;
     }
 
     public void setLocation_latitude(String location_latitude) {
@@ -34,10 +34,30 @@ class Reports {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.measurement_date = date;
     }
 
     public void setResult(String result) {
-        this.result = result;
+        this.measurement_result = result;
+    }
+
+    public String getStaff_id() {
+        return staff_id;
+    }
+
+    public String getLocation_latitude() {
+        return location_latitude;
+    }
+
+    public String getLocation_longitude() {
+        return location_longitude;
+    }
+
+    public String getMeasurement_date() {
+        return measurement_date;
+    }
+
+    public String getMeasurement_result() {
+        return measurement_result;
     }
 }
