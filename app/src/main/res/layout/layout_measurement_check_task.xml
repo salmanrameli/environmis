@@ -5,22 +5,22 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Task ID"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView16"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Task ID"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
 
-    <TextView
-        android:id="@+id/taskIdTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="task id"
-        android:paddingBottom="10dp"
-        android:paddingTop="5dp"
-        android:textSize="16sp" />
+    <!--<TextView-->
+        <!--android:id="@+id/taskIdTextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="task id"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:textSize="16sp" />-->
 
     <TextView
         android:id="@+id/textView13"
@@ -58,21 +58,27 @@
         android:paddingTop="5dp"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView15"
+    <Button
+        android:id="@+id/buttonDoThisTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:text="Staff ID"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:text="do this task" />
 
-    <TextView
-        android:id="@+id/checkTaskStaffIdTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="staff id"
-        android:paddingBottom="15dp"
-        android:paddingTop="5dp"
-        android:textSize="16sp" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView15"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingTop="15dp"-->
+        <!--android:text="Staff ID"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/checkTaskStaffIdTextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="staff id"-->
+        <!--android:paddingBottom="15dp"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:textSize="16sp" />-->
 </LinearLayout>
