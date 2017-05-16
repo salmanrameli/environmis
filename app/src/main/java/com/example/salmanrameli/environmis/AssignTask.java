@@ -1,7 +1,6 @@
 package com.example.salmanrameli.environmis;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,51 +13,72 @@ import android.widget.Toast;
 
 import com.example.salmanrameli.db.AssignTaskContract;
 import com.example.salmanrameli.db.AssignTaskDbHelper;
-import com.example.salmanrameli.db.StaffContract;
-import com.example.salmanrameli.db.StaffDbHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AssignTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private StaffDbHelper staffDbHelper;
     private AssignTaskDbHelper assignTaskDbHelper;
     EditText location_latitude;
     EditText location_longitude;
     Spinner spinner;
     String selected_staff;
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assign_task);
 
-        staffDbHelper = new StaffDbHelper(this);
-
-        SQLiteDatabase db = staffDbHelper.getReadableDatabase();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
         location_latitude = (EditText) findViewById(R.id.assignTaskLocationLatitude);
         location_longitude = (EditText) findViewById(R.id.assignTaskLocationLongitude);
-        spinner = (Spinner) findViewById(R.id.spinner);
 
-        spinner.setOnItemSelectedListener(this);
+        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> name = new ArrayList<>();
 
-        Cursor cursor = db.query(StaffContract.StaffEntry.TABLE, new String[]{StaffContract.StaffEntry._ID}, StaffContract.StaffEntry.COL_STAFF_ROLE + " = ?", new String[]{"measurement"}, null, null, null);
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Staff staff = snapshot.getValue(Staff.class);
 
-        List<String> name = new ArrayList<>();
+                    String role = staff.getRole();
 
-        while(cursor.moveToNext())
-        {
-            name.add(cursor.getString(cursor.getColumnIndex("_id")));
-        }
+                    if(role.equals("measurement")) {
+                        name.add(staff.getUsername());
+                    }
+                }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, name);
+                spinner = (Spinner) findViewById(R.id.spinner);
+                spinner.setOnItemSelectedListener(AssignTask.this);
 
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AssignTask.this, android.R.layout.simple_spinner_dropdown_item, name);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(arrayAdapter);
+                spinner.setAdapter(arrayAdapter);
+            }
 
-        cursor.close();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
