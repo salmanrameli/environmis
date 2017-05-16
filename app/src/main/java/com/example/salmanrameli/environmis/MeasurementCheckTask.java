@@ -1,34 +1,60 @@
 package com.example.salmanrameli.environmis;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.salmanrameli.db.AssignTaskContract;
-import com.example.salmanrameli.db.AssignTaskDbHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MeasurementCheckTask extends AppCompatActivity {
-    MeasurementCheckTaskCursorAdapter measurementCheckTaskCursorAdapter;
+    MeasurementCheckTaskCustomAdapter measurementCheckTaskCursorAdapter;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
+    ArrayList<TaskToDo> taskToDoArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measurement_check_task);
 
-        AssignTaskDbHelper assignTaskDbHelper = new AssignTaskDbHelper(this);
-        ListView checkTaskListView = (ListView) findViewById(R.id.checkTaskListView);
+        final ListView checkTaskListView = (ListView) findViewById(R.id.checkTaskListView);
 
-        String user_id = getIntent().getStringExtra("user_id_session");
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
-        SQLiteDatabase db = assignTaskDbHelper.getReadableDatabase();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
-        Cursor cursor = db.query(AssignTaskContract.AssignTaskEntry.TABLE,
-                null,
-                AssignTaskContract.AssignTaskEntry.COL_STAFF_ID + " = ? and " + AssignTaskContract.AssignTaskEntry.COL_IS_DONE + " = ?", new String[]{user_id, "false"}, null, null, null);
+        databaseReference.child("todo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    TaskToDo taskToDo = snapshot.getValue(TaskToDo.class);
 
-        measurementCheckTaskCursorAdapter = new MeasurementCheckTaskCursorAdapter(this, cursor);
-        checkTaskListView.setAdapter(measurementCheckTaskCursorAdapter);
+                    taskToDoArrayList.add(taskToDo);
+                }
+                measurementCheckTaskCursorAdapter = new MeasurementCheckTaskCustomAdapter(MeasurementCheckTask.this, taskToDoArrayList);
+                checkTaskListView.setAdapter(measurementCheckTaskCursorAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 }
