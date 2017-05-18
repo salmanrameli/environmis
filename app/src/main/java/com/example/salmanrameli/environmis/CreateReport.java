@@ -31,7 +31,6 @@ public class CreateReport extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    Button getLocationButton;
     Button submitButton;
     EditText report_location_latitude_text;
     EditText report_location_longitude_text;
@@ -64,7 +63,6 @@ public class CreateReport extends AppCompatActivity {
         report_date_text = (EditText) findViewById(R.id.report_date_);
         report_result_text = (EditText) findViewById(R.id.report_result_);
 
-
         try {
             if(ActivityCompat.checkSelfPermission(this, permission) != MockPackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE_PERMISSION);
@@ -73,28 +71,25 @@ public class CreateReport extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        getLocationButton = (Button) findViewById(R.id.getLocationButton);
+        gps = new GPSTracker(CreateReport.this);
 
-        getLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gps = new GPSTracker(CreateReport.this);
+        Toast.makeText(CreateReport.this, "Fetching current location coordinate", Toast.LENGTH_SHORT).show();
 
-                if(gps.canGetLocation()) {
-                    latitude_val = gps.getLatitude();
-                    longitude_val = gps.getLongitude();
+        if(gps.canGetLocation()) {
+            latitude_val = gps.getLatitude();
+            longitude_val = gps.getLongitude();
 
-                    report_location_latitude_text.setText("");
-                    report_location_longitude_text.setText("");
+            report_location_latitude_text.setText("");
+            report_location_longitude_text.setText("");
 
-                    report_location_latitude_text.setText(String.valueOf(latitude_val));
-                    report_location_longitude_text.setText(String.valueOf(longitude_val));
+            report_location_latitude_text.setText(String.valueOf(latitude_val));
+            report_location_longitude_text.setText(String.valueOf(longitude_val));
 
-                } else {
-                    gps.showSettingsAlert();
-                }
-            }
-        });
+            Toast.makeText(CreateReport.this, "Current location fetched", Toast.LENGTH_SHORT).show();
+
+        } else {
+            gps.showSettingsAlert();
+        }
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 

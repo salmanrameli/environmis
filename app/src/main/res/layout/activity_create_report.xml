@@ -6,60 +6,67 @@
     android:layout_height="match_parent"
     tools:context="com.example.salmanrameli.environmis.CreateReport">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="368dp"
         android:layout_height="495dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <EditText
-            android:id="@+id/report_location_latitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Location latitude"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/report_location_longitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Location longitude"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/report_date_"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="Date"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/report_result_"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.96"
-            android:ems="10"
-            android:hint="Measurement result"
-            android:inputType="textMultiLine" />
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:weightSum="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
-        <Button
-            android:id="@+id/getLocationButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Location" />
+            <EditText
+                android:id="@+id/report_location_latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Location latitude"
+                android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit Report" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/report_location_longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Location longitude"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/report_date_"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Date"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/report_result_"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.96"
+                android:ems="10"
+                android:hint="Measurement result"
+                android:inputType="textMultiLine" />
+
+            <!--<Button-->
+            <!--android:id="@+id/getLocationButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Get Location" />-->
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Report" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
