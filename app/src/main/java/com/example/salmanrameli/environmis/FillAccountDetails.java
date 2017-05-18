@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -54,8 +55,8 @@ public class FillAccountDetails extends AppCompatActivity {
                 else {
                     switch (selectedRadioButton) {
                         case R.id.measurementStaffRadioButton:
-                            databaseReference.child("users").child(id).child("username").setValue(name);
-                            databaseReference.child("users").child(id).child("role").setValue("measurement");
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.USERNAME).setValue(name);
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.ROLE).setValue(FirebaseStrings.MEASUREMENT_ROLE);
 
                             Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
 
@@ -66,8 +67,8 @@ public class FillAccountDetails extends AppCompatActivity {
                             break;
 
                         case R.id.reportValidatorRadioButton: {
-                            databaseReference.child("users").child(id).child("username").setValue(name);
-                            databaseReference.child("users").child(id).child("role").setValue("validator");
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.USERNAME).setValue(name);
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.ROLE).setValue(FirebaseStrings.VALIDATOR_ROLE);
 
                             Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
 

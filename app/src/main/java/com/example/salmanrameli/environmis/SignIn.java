@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,12 +61,12 @@ public class SignIn extends AppCompatActivity {
 
                                 String _id = firebaseUser.getUid();
 
-                                databaseReference.child("users").child(_id).child("role").addListenerForSingleValueEvent(new ValueEventListener() {
+                                databaseReference.child(FirebaseStrings.USERS).child(_id).child(FirebaseStrings.ROLE).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         String role = dataSnapshot.getValue(String.class);
 
-                                        if(role.equals("validator")) {
+                                        if(role.equals(FirebaseStrings.VALIDATOR_ROLE)) {
                                             Intent intent = new Intent(SignIn.this, HomeValidatorStaff.class);
 
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -73,7 +74,7 @@ public class SignIn extends AppCompatActivity {
 
                                             startActivity(intent);
                                         }
-                                        if(role.equals("measurement")) {
+                                        if(role.equals(FirebaseStrings.MEASUREMENT_ROLE)) {
                                             Intent intent = new Intent(SignIn.this, HomeMeasurementStaff.class);
 
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

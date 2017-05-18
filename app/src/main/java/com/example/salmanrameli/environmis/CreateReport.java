@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -135,15 +136,15 @@ public class CreateReport extends AppCompatActivity {
 
                 Map<String, String> map = new HashMap<String, String>();
 
-                map.put("staff_id", _id);
-                map.put("location_latitude", location_latitude);
-                map.put("location_longitude", location_longitude);
-                map.put("measurement_date", measurement_date);
-                map.put("measurement_result", measurement_result);
+                map.put(FirebaseStrings.STAFF_ID, _id);
+                map.put(FirebaseStrings.LOCATION_LATITUDE, location_latitude);
+                map.put(FirebaseStrings.LOCATION_LONGITUDE, location_longitude);
+                map.put(FirebaseStrings.MEASUREMENT_DATE, measurement_date);
+                map.put(FirebaseStrings.MEASUREMENT_RESULT, measurement_result);
 
-                databaseReference.child("reports").push().setValue(map);
+                databaseReference.child(FirebaseStrings.REPORTS).push().setValue(map);
 
-                databaseReference.child("todo").child(todo_key).child("is_done").setValue("true");
+                databaseReference.child(FirebaseStrings.TODO).child(todo_key).child(FirebaseStrings.IS_DONE).setValue("true");
 
                 Toast.makeText(CreateReport.this, "Report submitted", Toast.LENGTH_LONG).show();
 

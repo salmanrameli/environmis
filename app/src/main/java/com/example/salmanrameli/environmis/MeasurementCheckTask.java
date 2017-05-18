@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,9 +43,9 @@ public class MeasurementCheckTask extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        name = intent.getStringExtra("username");
+        name = intent.getStringExtra(FirebaseStrings.USERNAME);
 
-        databaseReference.child("todo").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(FirebaseStrings.TODO).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 taskToDoArrayList.clear();

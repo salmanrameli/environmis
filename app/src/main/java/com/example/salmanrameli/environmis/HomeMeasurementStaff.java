@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,10 +35,10 @@ public class HomeMeasurementStaff extends AppCompatActivity {
 
         _id = firebaseUser.getUid();
 
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(FirebaseStrings.USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                name = (String) dataSnapshot.child(_id).child("username").getValue();
+                name = (String) dataSnapshot.child(_id).child(FirebaseStrings.USERNAME).getValue();
             }
 
             @Override
@@ -59,7 +60,7 @@ public class HomeMeasurementStaff extends AppCompatActivity {
     public void measurementCheckTaskButtonOnClick(View view) {
         Intent intent = new Intent(this, MeasurementCheckTask.class);
 
-        intent.putExtra("username", name);
+        intent.putExtra(FirebaseStrings.USERNAME, name);
 
         startActivity(intent);
     }

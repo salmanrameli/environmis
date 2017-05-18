@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.salmanrameli.db.FirebaseStrings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +50,7 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         location_latitude.setText("-7.279228");
         location_longitude.setText("112.790819");
 
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(FirebaseStrings.USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> name = new ArrayList<>();
@@ -59,7 +60,7 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
 
                     String role = staff.getRole();
 
-                    if(role.equals("measurement")) {
+                    if(role.equals(FirebaseStrings.MEASUREMENT_ROLE)) {
                         name.add(staff.getUsername());
                     }
                 }
@@ -97,12 +98,12 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
 
         Map<String, String> map = new HashMap<>();
 
-        map.put("location_latitude", location_lat);
-        map.put("location_longitude", location_long);
-        map.put("staff_id", selected_staff);
-        map.put("is_done", "false");
+        map.put(FirebaseStrings.LOCATION_LATITUDE, location_lat);
+        map.put(FirebaseStrings.LOCATION_LONGITUDE, location_long);
+        map.put(FirebaseStrings.STAFF_ID, selected_staff);
+        map.put(FirebaseStrings.IS_DONE, "false");
 
-        DatabaseReference _id = databaseReference.child("todo").push();
+        DatabaseReference _id = databaseReference.child(FirebaseStrings.TODO).push();
         String key_id = _id.getKey();
 
         map.put("todo_key", key_id);
