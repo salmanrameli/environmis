@@ -2,6 +2,7 @@ package com.example.salmanrameli.environmis;
 
 import android.app.DatePickerDialog;
 import android.Manifest;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v4.app.ActivityCompat;
@@ -36,7 +37,9 @@ public class CreateReport extends AppCompatActivity {
     EditText report_location_longitude_text;
     EditText report_date_text;
     EditText report_result_text;
+
     String _id;
+    String todo_key;
 
     Calendar calendar = Calendar.getInstance();
 
@@ -50,6 +53,10 @@ public class CreateReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_report);
+
+        final Intent intent = getIntent();
+
+        todo_key = intent.getStringExtra("todo_key");
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -136,9 +143,14 @@ public class CreateReport extends AppCompatActivity {
 
                 databaseReference.child("reports").push().setValue(map);
 
+                databaseReference.child("todo").child(todo_key).child("is_done").setValue("true");
+
                 Toast.makeText(CreateReport.this, "Report submitted", Toast.LENGTH_LONG).show();
 
-                finish();
+                Intent intent = new Intent(CreateReport.this, HomeMeasurementStaff.class);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
