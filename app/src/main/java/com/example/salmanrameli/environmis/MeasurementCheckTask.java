@@ -47,12 +47,14 @@ public class MeasurementCheckTask extends AppCompatActivity {
         databaseReference.child("todo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                taskToDoArrayList.clear();
+
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TaskToDo taskToDo = snapshot.getValue(TaskToDo.class);
 
                     staff_name = taskToDo.getStaff_id();
 
-                    if(staff_name.equals(name)) {
+                    if(staff_name.equals(name) && taskToDo.getIs_done().equals("false")) {
                         taskToDoArrayList.add(taskToDo);
                     }
                 }
