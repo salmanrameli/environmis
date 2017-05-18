@@ -62,12 +62,14 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
 
         TextView latitude_text = (TextView) convertView.findViewById(R.id.checkTaskLocationLatitudeTextView);
         TextView longitude_text = (TextView) convertView.findViewById(R.id.checkTaskLocationLongitudeTextView);
+        TextView todo_key = (TextView) convertView.findViewById(R.id.todoKey);
         Button do_task = (Button) convertView.findViewById(R.id.buttonDoThisTask);
 
         final TaskToDo taskToDo = (TaskToDo) this.getItem(position);
 
         latitude_text.setText(taskToDo.getLocation_latitude());
         longitude_text.setText(taskToDo.getLocation_longitude());
+        todo_key.setText(taskToDo.getTodo_key());
 
         supposed_latitude_val = Double.parseDouble(taskToDo.getLocation_latitude());
         supposed_longitude_val = Double.parseDouble(taskToDo.getLocation_longitude());
@@ -84,6 +86,8 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, CreateReport.class);
+
+                    intent.putExtra("todo_key", taskToDo.getTodo_key());
 
                     context.startActivity(intent);
                 }
