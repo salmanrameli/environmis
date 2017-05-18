@@ -1,6 +1,7 @@
 package com.example.salmanrameli.environmis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,15 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
         }
         else {
             do_task.setEnabled(true);
+
+            do_task.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CreateReport.class);
+
+                    context.startActivity(intent);
+                }
+            });
         }
 
         return convertView;
