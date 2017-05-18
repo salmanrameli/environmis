@@ -102,7 +102,12 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         map.put("staff_id", selected_staff);
         map.put("is_done", "false");
 
-        databaseReference.child("todo").push().setValue(map);
+        DatabaseReference _id = databaseReference.child("todo").push();
+        String key_id = _id.getKey();
+
+        map.put("todo_key", key_id);
+
+        _id.setValue(map);
 
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 
