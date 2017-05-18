@@ -7,11 +7,19 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeMeasurementStaff extends AppCompatActivity {
     String _id;
+    String name;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +28,23 @@ public class HomeMeasurementStaff extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        _id = firebaseUser.getUid();
+
+        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = (String) dataSnapshot.child(_id).child("username").getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void createReport(View view)
@@ -34,7 +59,7 @@ public class HomeMeasurementStaff extends AppCompatActivity {
     public void measurementCheckTaskButtonOnClick(View view) {
         Intent intent = new Intent(this, MeasurementCheckTask.class);
 
-        intent.putExtra("user_id_session", _id);
+        intent.putExtra("username", name);
 
         startActivity(intent);
     }

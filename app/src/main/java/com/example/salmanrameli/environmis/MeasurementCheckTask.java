@@ -1,5 +1,6 @@
 package com.example.salmanrameli.environmis;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -21,6 +22,9 @@ public class MeasurementCheckTask extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
+    String name;
+    String staff_name;
+
     ArrayList<TaskToDo> taskToDoArrayList = new ArrayList<>();
 
     @Override
@@ -36,14 +40,23 @@ public class MeasurementCheckTask extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        Intent intent = getIntent();
+
+        name = intent.getStringExtra("username");
+
         databaseReference.child("todo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TaskToDo taskToDo = snapshot.getValue(TaskToDo.class);
 
-                    taskToDoArrayList.add(taskToDo);
+                    staff_name = taskToDo.getStaff_id();
+
+                    if(staff_name.equals(name)) {
+                        taskToDoArrayList.add(taskToDo);
+                    }
                 }
+
                 measurementCheckTaskCursorAdapter = new MeasurementCheckTaskCustomAdapter(MeasurementCheckTask.this, taskToDoArrayList);
                 checkTaskListView.setAdapter(measurementCheckTaskCursorAdapter);
             }
