@@ -32,12 +32,6 @@
             android:text="Assign Task" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Check Task" />
-
-        <Button
             android:id="@+id/signOutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
