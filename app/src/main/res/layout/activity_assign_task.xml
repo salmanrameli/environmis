@@ -15,35 +15,17 @@
         tools:layout_editor_absoluteY="8dp">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location Latitude"
+            android:text="Location"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/assignTaskLocationLatitude"
+        <Spinner
+            android:id="@+id/spinnerLocationName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Location Latitude"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Location Longitude"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/assignTaskLocationLongitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Location Longitude"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView12"
@@ -51,6 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:text="Staff"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Spinner

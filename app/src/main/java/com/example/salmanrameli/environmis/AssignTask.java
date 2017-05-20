@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,10 +23,13 @@ import java.util.List;
 import java.util.Map;
 
 public class AssignTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    EditText location_latitude;
-    EditText location_longitude;
     Spinner spinner;
+    Spinner spinnerLocation;
+
     String selected_staff;
+    String selected_location;
+    String location_latitude;
+    String location_longitude;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -43,12 +45,6 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-
-        location_latitude = (EditText) findViewById(R.id.assignTaskLocationLatitude);
-        location_longitude = (EditText) findViewById(R.id.assignTaskLocationLongitude);
-
-        location_latitude.setText("-7.279228");
-        location_longitude.setText("112.790819");
 
         databaseReference.child(FirebaseStrings.USERS).addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,11 +76,72 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
+        databaseReference.child(FirebaseStrings.LOCATION).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> location_names = new ArrayList<String>();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Location location = snapshot.getValue(Location.class);
+
+                    String location_name = location.getLocation_name();
+
+                    location_names.add(location_name);
+                }
+
+                spinnerLocation = (Spinner) findViewById(R.id.spinnerLocationName);
+                spinnerLocation.setOnItemSelectedListener(AssignTask.this);
+
+                ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(AssignTask.this, android.R.layout.simple_spinner_dropdown_item, location_names);
+                arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerLocation.setAdapter(arrayAdapter1);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selected_staff = parent.getItemAtPosition(position).toString();
+        Spinner parentSpinner = (Spinner) parent;
+
+        switch(parentSpinner.getId()) {
+            case R.id.spinner:
+                selected_staff = parent.getItemAtPosition(position).toString();
+
+                break;
+
+            case R.id.spinnerLocationName:
+                selected_location = parent.getItemAtPosition(position).toString();
+
+                databaseReference.child(FirebaseStrings.LOCATION).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Location location = snapshot.getValue(Location.class);
+
+                            String _location_name = location.getLocation_name();
+
+                            if(_location_name.equals(selected_location)) {
+                                location_latitude = location.getLocation_latitude();
+                                location_longitude = location.getLocation_longitude();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                break;
+        }
+
     }
 
     @Override
@@ -93,13 +150,10 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     public void assignTaskButtonOnClick(View view) {
-        String location_lat = String.valueOf(location_latitude.getText().toString());
-        String location_long = String.valueOf(location_longitude.getText().toString());
-
         Map<String, String> map = new HashMap<>();
 
-        map.put(FirebaseStrings.LOCATION_LATITUDE, location_lat);
-        map.put(FirebaseStrings.LOCATION_LONGITUDE, location_long);
+        map.put(FirebaseStrings.LOCATION_LATITUDE, location_latitude);
+        map.put(FirebaseStrings.LOCATION_LONGITUDE, location_longitude);
         map.put(FirebaseStrings.STAFF_ID, selected_staff);
         map.put(FirebaseStrings.IS_DONE, "false");
 
