@@ -12,13 +12,13 @@
         android:orientation="vertical"
         android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="9dp">
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center"
             android:paddingBottom="20dp"
             android:text="Environmenmental Measurement Information System"
             android:textAlignment="center"
@@ -30,15 +30,14 @@
             android:layout_height="wrap_content"
             android:onClick="signUpButtonOnClick"
             android:text="Sign Up"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/signInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="signInButtonOnClick"
             android:text="Sign In"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

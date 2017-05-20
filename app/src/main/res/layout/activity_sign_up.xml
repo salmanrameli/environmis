@@ -10,8 +10,27 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Environmental Measurement Information System"
+            android:textAlignment="center"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="Fill Your Credentials Below"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/editTextEmail"
