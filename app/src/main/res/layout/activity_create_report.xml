@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Location latitude"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/report_location_longitude"
@@ -35,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Location longitude"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/report_date_"
