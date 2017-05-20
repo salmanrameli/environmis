@@ -13,6 +13,10 @@ public class FirebaseStrings {
 
     public static final String STAFF_ID = "staff_id";
 
+    public static final String LOCATION = "location";
+
+    public static final String LOCATION_NAME = "location_name";
+
     public static final String LOCATION_LATITUDE = "location_latitude";
 
     public static final String LOCATION_LONGITUDE = "location_longitude";
