@@ -37,7 +37,7 @@ public class TaskToDo {
         this.location_name = location_name;
     }
 
-    public void setStaff_name(String staff_id) {
+    public void setStaff_name(String staff_name) {
         this.staff_name = staff_name;
     }
 
