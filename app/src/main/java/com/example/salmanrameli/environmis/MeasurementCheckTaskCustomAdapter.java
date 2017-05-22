@@ -62,6 +62,7 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
 
         TextView latitude_text = (TextView) convertView.findViewById(R.id.checkTaskLocationLatitudeTextView);
         TextView longitude_text = (TextView) convertView.findViewById(R.id.checkTaskLocationLongitudeTextView);
+        TextView location_text = (TextView) convertView.findViewById(R.id.checkTaskLocationName);
         TextView todo_key = (TextView) convertView.findViewById(R.id.todoKey);
         Button do_task = (Button) convertView.findViewById(R.id.buttonDoThisTask);
 
@@ -69,6 +70,7 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
 
         latitude_text.setText(taskToDo.getLocation_latitude());
         longitude_text.setText(taskToDo.getLocation_longitude());
+        location_text.setText(taskToDo.getLocation_name());
         todo_key.setText(taskToDo.getTodo_key());
 
         supposed_latitude_val = Double.parseDouble(taskToDo.getLocation_latitude());
@@ -76,7 +78,7 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
 
         distance = getDistance(supposed_latitude_val, supposed_longitude_val, current_latitude_val, current_longitude_val);
 
-        if(distance > 1) {
+        if(distance > 0.5) {
             do_task.setEnabled(false);
         }
         else {
