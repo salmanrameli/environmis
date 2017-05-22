@@ -53,7 +53,7 @@ public class MeasurementCheckTask extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TaskToDo taskToDo = snapshot.getValue(TaskToDo.class);
 
-                    staff_name = taskToDo.getStaff_id();
+                    staff_name = taskToDo.getStaff_name();
 
                     if(staff_name.equals(name) && taskToDo.getIs_done().equals("false")) {
                         taskToDoArrayList.add(taskToDo);
