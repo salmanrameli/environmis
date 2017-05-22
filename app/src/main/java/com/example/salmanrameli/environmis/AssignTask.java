@@ -4,13 +4,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,7 +47,9 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    EditText editTextLocationName;
     Spinner spinner;
+
     String selected_staff;
 
     private FirebaseAuth firebaseAuth;
@@ -73,6 +75,8 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
+        editTextLocationName = (EditText) findViewById(R.id.editTextLocationName);
 
         databaseReference.child(FirebaseStrings.USERS).addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,7 +134,7 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
                 markerOptions = new MarkerOptions();
 
                 markerOptions.position(arg0);
-                markerOptions.title(arg0.latitude + " , " + arg0.longitude);
+                markerOptions.title(arg0.latitude+", "+arg0.longitude);
 
                 mymarker = mGoogleMap.addMarker(markerOptions);
 
@@ -201,18 +205,20 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
     public void assignTaskButtonOnClick(View view) {
         String location_lat = String.valueOf(myloc.latitude);
         String location_long = String.valueOf(myloc.longitude);
+        String location_name = String.valueOf(editTextLocationName.getText().toString());
 
         Map<String, String> map = new HashMap<>();
 
         map.put(FirebaseStrings.LOCATION_LATITUDE, location_lat);
         map.put(FirebaseStrings.LOCATION_LONGITUDE, location_long);
-        map.put(FirebaseStrings.STAFF_ID, selected_staff);
+        map.put(FirebaseStrings.LOCATION_NAME, location_name);
+        map.put(FirebaseStrings.STAFF_NAME, selected_staff);
         map.put(FirebaseStrings.IS_DONE, "false");
 
         DatabaseReference _id = databaseReference.child(FirebaseStrings.TODO).push();
         String key_id = _id.getKey();
 
-        map.put("todo_key", key_id);
+        map.put(FirebaseStrings.TODO_KEY, key_id);
 
         _id.setValue(map);
 
