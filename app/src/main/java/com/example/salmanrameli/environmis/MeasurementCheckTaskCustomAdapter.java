@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.salmanrameli.db.FirebaseStrings;
+
 import java.util.ArrayList;
 
 class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
@@ -89,7 +91,8 @@ class MeasurementCheckTaskCustomAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, CreateReport.class);
 
-                    intent.putExtra("todo_key", taskToDo.getTodo_key());
+                    intent.putExtra(FirebaseStrings.TODO_KEY, taskToDo.getTodo_key());
+                    intent.putExtra(FirebaseStrings.LOCATION_NAME, taskToDo.getLocation_name());
 
                     context.startActivity(intent);
                 }

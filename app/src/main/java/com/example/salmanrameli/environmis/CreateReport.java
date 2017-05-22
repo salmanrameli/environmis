@@ -41,6 +41,7 @@ public class CreateReport extends AppCompatActivity {
 
     String _id;
     String todo_key;
+    String location_name_;
 
     Calendar calendar = Calendar.getInstance();
 
@@ -57,7 +58,8 @@ public class CreateReport extends AppCompatActivity {
 
         final Intent intent = getIntent();
 
-        todo_key = intent.getStringExtra("todo_key");
+        todo_key = intent.getStringExtra(FirebaseStrings.TODO_KEY);
+        location_name_ = intent.getStringExtra(FirebaseStrings.LOCATION_NAME);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -137,6 +139,7 @@ public class CreateReport extends AppCompatActivity {
                 Map<String, String> map = new HashMap<String, String>();
 
                 map.put(FirebaseStrings.STAFF_ID, _id);
+                map.put(FirebaseStrings.LOCATION_NAME, location_name_);
                 map.put(FirebaseStrings.LOCATION_LATITUDE, location_latitude);
                 map.put(FirebaseStrings.LOCATION_LONGITUDE, location_longitude);
                 map.put(FirebaseStrings.MEASUREMENT_DATE, measurement_date);

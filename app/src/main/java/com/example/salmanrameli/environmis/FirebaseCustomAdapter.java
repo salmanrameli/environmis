@@ -39,6 +39,7 @@ class FirebaseCustomAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.layout_report_list, parent, false);
         }
 
+        TextView location_name_text = (TextView) convertView.findViewById(R.id.list_report_location_name_);
         TextView location_latitude_text = (TextView) convertView.findViewById(R.id.list_report_location_latitude_);
         TextView location_longitude_text = (TextView) convertView.findViewById(R.id.list_report_location_longitude_);
         TextView date_text = (TextView) convertView.findViewById(R.id.report_date);
@@ -46,6 +47,7 @@ class FirebaseCustomAdapter extends BaseAdapter {
 
         final Reports r = (Reports) this.getItem(position);
 
+        location_name_text.setText(r.getLocation_name());
         location_latitude_text.setText(r.getLocation_latitude());
         location_longitude_text.setText(r.getLocation_longitude());
         date_text.setText(r.getMeasurement_date());
