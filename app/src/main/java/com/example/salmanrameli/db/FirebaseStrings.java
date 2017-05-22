@@ -5,6 +5,8 @@ public class FirebaseStrings {
 
     public static final String TODO = "todo";
 
+    public static final String TODO_KEY = "todo_key";
+
     public static final String REPORTS = "reports";
 
     public static final String USERNAME = "username";
@@ -30,4 +32,6 @@ public class FirebaseStrings {
     public static final String MEASUREMENT_ROLE = "measurement";
 
     public static final String VALIDATOR_ROLE = "validator";
+
+    public static final String STAFF_NAME = "staff_name";
 }
