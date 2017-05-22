@@ -3,19 +3,21 @@ package com.example.salmanrameli.environmis;
 public class TaskToDo {
     private String location_latitude;
     private String location_longitude;
+    private String location_name;
     private String todo_key;
-    private String staff_id;
+    private String staff_name;
     private String is_done;
 
     public TaskToDo() {
 
     }
 
-    public TaskToDo(String todo_key, String location_latitude, String location_longitude, String staff_id, String is_done) {
+    public TaskToDo(String todo_key, String location_latitude, String location_longitude, String location_name, String staff_name, String is_done) {
         this.todo_key = todo_key;
         this.location_latitude = location_latitude;
         this.location_longitude = location_longitude;
-        this.staff_id = staff_id;
+        this.location_name = location_name;
+        this.staff_name = staff_name;
         this.is_done = is_done;
     }
 
@@ -31,8 +33,12 @@ public class TaskToDo {
         this.location_longitude = location_longitude;
     }
 
-    public void setStaff_id(String staff_id) {
-        this.staff_id = staff_id;
+    public void setLocation_name(String location_name) {
+        this.location_name = location_name;
+    }
+
+    public void setStaff_name(String staff_id) {
+        this.staff_name = staff_name;
     }
 
     public void setIs_done(String is_done) {
@@ -51,8 +57,12 @@ public class TaskToDo {
         return location_longitude;
     }
 
-    public String getStaff_id() {
-        return staff_id;
+    public String getLocation_name() {
+        return location_name;
+    }
+
+    public String getStaff_name() {
+        return staff_name;
     }
 
     public String getIs_done() {
