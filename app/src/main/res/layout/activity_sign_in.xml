@@ -70,7 +70,8 @@
             android:text="Sign Up"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </LinearLayout>
 

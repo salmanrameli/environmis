@@ -60,7 +60,7 @@ public class FillAccountDetails extends AppCompatActivity {
 
                             Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
 
-                            intent = new Intent(FillAccountDetails.this, HomeMeasurementStaff.class);
+                            intent = new Intent(FillAccountDetails.this, HomeValidatorStaff.class);
 
                             startActivity(intent);
 
