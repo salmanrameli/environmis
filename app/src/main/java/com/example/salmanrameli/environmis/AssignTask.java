@@ -203,27 +203,35 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     public void assignTaskButtonOnClick(View view) {
-        String location_lat = String.valueOf(myloc.latitude);
-        String location_long = String.valueOf(myloc.longitude);
-        String location_name = String.valueOf(editTextLocationName.getText().toString());
+        if(markerOptions == null) {
+            Toast.makeText(AssignTask.this, "Please select the location", Toast.LENGTH_SHORT).show();
+        }
+        if(editTextLocationName.getText().toString().equals("")) {
+            Toast.makeText(AssignTask.this, "Vacant field", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String location_lat = String.valueOf(myloc.latitude);
+            String location_long = String.valueOf(myloc.longitude);
+            String location_name = String.valueOf(editTextLocationName.getText().toString());
 
-        Map<String, String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
 
-        map.put(FirebaseStrings.LOCATION_LATITUDE, location_lat);
-        map.put(FirebaseStrings.LOCATION_LONGITUDE, location_long);
-        map.put(FirebaseStrings.LOCATION_NAME, location_name);
-        map.put(FirebaseStrings.STAFF_NAME, selected_staff);
-        map.put(FirebaseStrings.IS_DONE, "false");
+            map.put(FirebaseStrings.LOCATION_LATITUDE, location_lat);
+            map.put(FirebaseStrings.LOCATION_LONGITUDE, location_long);
+            map.put(FirebaseStrings.LOCATION_NAME, location_name);
+            map.put(FirebaseStrings.STAFF_NAME, selected_staff);
+            map.put(FirebaseStrings.IS_DONE, "false");
 
-        DatabaseReference _id = databaseReference.child(FirebaseStrings.TODO).push();
-        String key_id = _id.getKey();
+            DatabaseReference _id = databaseReference.child(FirebaseStrings.TODO).push();
+            String key_id = _id.getKey();
 
-        map.put(FirebaseStrings.TODO_KEY, key_id);
+            map.put(FirebaseStrings.TODO_KEY, key_id);
 
-        _id.setValue(map);
+            _id.setValue(map);
 
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 
-        finish();
+            finish();
+        }
     }
 }
