@@ -203,7 +203,7 @@ public class AssignTask extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     public void assignTaskButtonOnClick(View view) {
-        if(markerOptions == null) {
+        if(myloc == null || mymarker == null) {
             Toast.makeText(AssignTask.this, "Please select the location", Toast.LENGTH_SHORT).show();
         }
         if(editTextLocationName.getText().toString().equals("")) {
