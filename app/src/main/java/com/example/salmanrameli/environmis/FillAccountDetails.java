@@ -53,14 +53,32 @@ public class FillAccountDetails extends AppCompatActivity {
                     Toast.makeText(FillAccountDetails.this, "Vacant Field", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.USERNAME).setValue(name);
-                    databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.ROLE).setValue(FirebaseStrings.MEASUREMENT_ROLE);
+                    switch (selectedRadioButton) {
+                        case R.id.measurementStaffRadioButton:
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.USERNAME).setValue(name);
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.ROLE).setValue(FirebaseStrings.MEASUREMENT_ROLE);
 
-                    Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
 
-                    intent = new Intent(FillAccountDetails.this, HomeValidatorStaff.class);
+                            intent = new Intent(FillAccountDetails.this, HomeValidatorStaff.class);
 
-                    startActivity(intent);
+                            startActivity(intent);
+
+                            break;
+
+                        case R.id.reportValidatorRadioButton: {
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.USERNAME).setValue(name);
+                            databaseReference.child(FirebaseStrings.USERS).child(id).child(FirebaseStrings.ROLE).setValue(FirebaseStrings.VALIDATOR_ROLE);
+
+                            Toast.makeText(FillAccountDetails.this, "Sign up success!", Toast.LENGTH_LONG).show();
+
+                            intent = new Intent(FillAccountDetails.this, HomeValidatorStaff.class);
+
+                            startActivity(intent);
+
+                            break;
+                        }
+                    }
                 }
             }
         });
